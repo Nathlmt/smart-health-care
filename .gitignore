@@ -1,0 +1,27 @@
+/node_modules/
+/angular/node_modules/
+/functions/node_modules/
+/functions/lib/
+/utils/*.js
+
+# Virtualenv
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+
+#MAC
+.DS_Store
+/public/
+
+#KEYS
+/_keys/
+
+
+.editorconfig

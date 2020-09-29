@@ -1,0 +1,10 @@
+{
+  "GCP": {
+    "PROJECT_ID": "smart-healthcare-290415",
+    "CLOUD_REGION": "us-central1",
+    "REGISTRY_ID": "nerves",
+    "MQTT_BRIDGE_HOSTNAME": "mqtt.googleapis.com",
+    "MQTT_BRIDGE_PORT": 8883,
+    "ALGORITHM": "RS256"
+  }
+}
