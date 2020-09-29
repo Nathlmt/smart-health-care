@@ -157,7 +157,7 @@ mqtt_bridge_port = gconfig['GCP']['MQTT_BRIDGE_PORT']
 algorithm = gconfig['GCP']['ALGORITHM']
 
 #sys specific
-ca_certs = gconfig[sys_type]['CA_CERTS']
+ca_certs = dconfig['DEVICE']['CA_CERTS']
 
 
 # This is the topic that the device will receive configuration updates on.

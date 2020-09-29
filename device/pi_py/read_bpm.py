@@ -1,7 +1,8 @@
 import serial
+import time
 ser = serial.Serial()
 ser.baudrate = 115200
-ser.port = '/dev/ttyAMA0'
+ser.port = '/dev/ttyACM0'
 
 sampler = []
 sample_size = 10
@@ -12,9 +13,10 @@ ser.open()
 
 while True:
   sline = ser.readline()
+  print("ok")
   if sline:
-    bpm = int(sline)
-    print bpm
+    bpm = sline
+    print(bpm)
 
     #hr = sample_bpm(bpm)
 

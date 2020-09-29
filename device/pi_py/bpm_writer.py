@@ -86,7 +86,7 @@ def on_message(unused_client, unused_userdata, message):
     print('Received message \'{}\' on topic \'{}\' with Qos {}'.format(
             payload, message.topic, str(message.qos)))
     try:
-        hr_limit = int(payload)
+        hr_limit = int(120)
     except ValueError:
         print('no valid config')
 
@@ -222,10 +222,12 @@ def main():
 
     while True:
         if not fake:
+     
             ser.reset_input_buffer()
             time.sleep(0.1)
-            sline = ser.readline() 
+            sline = ser.readline().decode("utf-8")
             if sline and sline != '':
+                print('in white')
                 ser_vals = sline.split(',')
                 bpm = int(ser_vals[1])
                 temp = float(ser_vals[0])
@@ -241,6 +243,7 @@ def main():
             toggle_led(True)
         else:
             toggle_led(False)
+        print(connected)
 
         if connected:
             payload = json.dumps({'bpm':bpm, 'temperature':temp, 'timestamp':read_time})

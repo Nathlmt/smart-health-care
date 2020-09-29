@@ -184,14 +184,14 @@ def main():
         sline = ser.readline() 
         if sline and sline != '':
             bpm = int(sline)
-            print 'bpm: ' + str(bpm)
+            print(bpm)
             payload = bpm
 
         if bpm >= hr_limit:
-            print 'you\'re too busy! take a breath'
+            print("you\'re too busy! take a breath")
 
         if connected:
-            print 'publishing ' + str(payload) + ' on ' + mqtt_topic 
+            #print 'publishing ' + str(payload) + ' on ' + mqtt_topic 
             client.publish(mqtt_topic, payload, qos=0)
 
 
