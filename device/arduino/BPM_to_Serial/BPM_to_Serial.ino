@@ -25,6 +25,13 @@
 
    See ProcessEverySample.ino for an example of not using interrupts.
 */
+
+#include "DHT.h"            
+const int DHTPIN = 4;      
+const int DHTTYPE = DHT11;  
+ 
+DHT dht(DHTPIN, DHTTYPE);
+
 #define USE_ARDUINO_INTERRUPTS true
 #include <PulseSensorPlayground.h>
 
@@ -79,10 +86,11 @@ void setup() {
      not work properly.
   */
   Serial.begin(115200);
+    dht.begin();       
+
 
   //turn on pin to power sensor
   pinMode(12, OUTPUT);
-  digitalWrite(12, HIGH);
 
   // Configure the PulseSensor manager.
 
@@ -140,7 +148,7 @@ void loop() {
 // Serial.println(pulseSensor.isInsideBeat());
 
   //temp
-  float temperature = getTemp();
+  float temperature = dht.readTemperature();
   //int tmp = (int) temperature;
   Serial.print(temperature);
   Serial.print(",");
@@ -148,49 +156,11 @@ void loop() {
  //temp
  int bpm = pulseSensor.getBeatsPerMinute();
  Serial.println(bpm);
+ 
+ if(bpm > 120){
+    digitalWrite(12, HIGH);
+ } else{
+    digitalWrite(12, LOW);
+ }
 }
 
-float getTemp(){
-  //returns the temperature from one DS18S20 in DEG Celsius
-
-  byte data[12];
-  byte addr[8];
-
-  if ( !ds.search(addr)) {
-      //no more sensors on chain, reset search
-      ds.reset_search();
-      return -1000;
-  }
-
-  if ( OneWire::crc8( addr, 7) != addr[7]) {
-      Serial.println("CRC is not valid!");
-      return -999;
-  }
-
-  if ( addr[0] != 0x10 && addr[0] != 0x28) {
-      Serial.print("Device is not recognized");
-      return -998;
-  }
-
-  ds.reset();
-  ds.select(addr);
-  ds.write(0x44,1); // start conversion, with parasite power on at the end
-
-  byte present = ds.reset();
-  ds.select(addr);    
-  ds.write(0xBE); // Read Scratchpad
-
-  for (int i = 0; i < 9; i++) { // we need 9 bytes
-    data[i] = ds.read();
-  }
-
-  ds.reset_search();
-
-  byte MSB = data[1];
-  byte LSB = data[0];
-
-  float tempRead = ((MSB << 8) | LSB); //using two's compliment
-  float TemperatureSum = tempRead / 16;
-
-  return (TemperatureSum * 18 + 5)/10 + 32;
-}
