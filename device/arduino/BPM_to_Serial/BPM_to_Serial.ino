@@ -1,31 +1,3 @@
-/*
-   Code to detect pulses from the PulseSensor,
-   using an interrupt service routine.
-
-   Here is a link to the tutorial\
-   https://pulsesensor.com/pages/getting-advanced
-
-   Copyright World Famous Electronics LLC - see LICENSE
-   Contributors:
-     Joel Murphy, https://pulsesensor.com
-     Yury Gitman, https://pulsesensor.com
-     Bradford Needham, @bneedhamia, https://bluepapertech.com
-
-   Licensed under the MIT License, a copy of which
-   should have been included with this software.
-
-   This software is not intended for medical use.
-*/
-
-/*
-   Every Sketch that uses the PulseSensor Playground must
-   define USE_ARDUINO_INTERRUPTS before including PulseSensorPlayground.h.
-   Here, #define USE_ARDUINO_INTERRUPTS true tells the library to use
-   interrupts to automatically read and process PulseSensor data.
-
-   See ProcessEverySample.ino for an example of not using interrupts.
-*/
-
 #include "DHT.h"            
 const int DHTPIN = 4;      
 const int DHTTYPE = DHT11;  
@@ -163,4 +135,3 @@ void loop() {
     digitalWrite(12, LOW);
  }
 }
-
